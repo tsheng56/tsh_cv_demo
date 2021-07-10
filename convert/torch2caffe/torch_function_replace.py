@@ -312,11 +312,15 @@ def _prelu(raw, input, weight):
 def _leaky_relu(raw, input, negative_slope=0.01, inplace=False):
     x = raw(input, negative_slope)
     name = trans_log.add_layer(name='leaky_relu')
-    trans_log.add_blobs([x], name='leaky_relu_blob')
+
+    bottom_blob = trans_log.blobs(input)
+    # trans_log.add_blobs([x], name='leaky_relu_blob')
+    top_blobs = trans_log.add_blobs([x], name=bottom_blob, with_num=False)
+
     layer = Layer(name=name,
                   type='ReLU',
-                  bottom=[trans_log.blobs(input)],
-                  top=[trans_log.blobs(x)])
+                  bottom=[bottom_blob],
+                  top=top_blobs)
     layer.param.relu_param.negative_slope = negative_slope
 
     trans_log.cnet.add_layer(layer)
