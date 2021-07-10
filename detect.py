@@ -315,7 +315,7 @@ def run(opt):
     else:
         from detect.models.torch_yolo import Model
         model_file = model_name
-        assert os.path.exists('yolodet/models/model_torch/torch_' + model_file + '.py'), f"{model_file} not exists"
+        assert os.path.exists('yolodet/models/model_torch/' + model_file + '.py'), f"{model_file} not exists"
    
     ckpt = torch.load(opt.weights, map_location=device)  # load checkpoint
     model = Model(version, model_file or ckpt['model'].yaml, ch=3, nc=nc, anchors=anchors).to(device)  # create

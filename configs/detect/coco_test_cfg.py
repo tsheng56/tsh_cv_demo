@@ -1,8 +1,8 @@
 
 cfg_train = {
     'data': 'coco_test',
-    'loss_type': 'v5',
-    'model': 'yolov5_simple.yaml', #'yolov5_simple.yaml',
+    'loss_type': 'v4',
+    'model': 'torch_test', #'yolov5_simple.yaml',
     'weights': '',
     'anchors': [[10,13, 16,30, 33,23], [30,61, 62,45, 59,119], [116,90, 156,198, 373,326]],
     

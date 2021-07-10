@@ -29,9 +29,15 @@ class Model(nn.Module):
     def __init__(self, version, cfg='yolov5s.yaml', ch=3, nc=None, anchors=None):  # model, input channels, number of classes
         super(Model, self).__init__()
 
-        logger.info(f'\n\t>> Create Torch Model: torch_{cfg}\n')
+        # logger.info(f'\n\t>> Create Torch Model: torch_{cfg}\n')
+        try:
+            exec(f"from detect.models.model_torch.{cfg} import Model")
+            logger.info(f"from detect.models.model_torch.{cfg} import Model\n")
+        except:
+            exec(f"from detect.models.model_torch.torch_{cfg} import Model")
+            logger.info(f"from detect.models.model_torch.torch_{cfg} import Model\n")
 
-        self.model = eval(cfg)(nc, anchors, ch)
+        self.model = eval('Model')(nc, anchors, ch)
 
         logger.info(f'model_torch anchors={anchors}')
         logger.info(f"model_troch nc={nc}")
